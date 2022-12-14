@@ -169,8 +169,14 @@ class Dev(Configuration):
             "level": "DEBUG",
         },
     }
-
-
+'''
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+            "LOCATION": "/var/tmp/django_cache",
+        }
+    }
+'''
 class Prod(Dev):
     DEBUG = False
     SECRET_KEY = values.SecretValue()

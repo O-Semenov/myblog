@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 class index(ListView):
     model = Post
     template_name = 'blog/index.html'
+    
 
 class post_detail(FormMixin, DetailView):
     model = Post
