@@ -5,6 +5,9 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from django.shortcuts import redirect
 from blog.forms import CommentForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 class index(ListView):
     model = Post
@@ -32,6 +35,9 @@ class post_detail(FormMixin, DetailView):
                     comment.content_object = self.object
                     comment.creator = request.user
                     comment.save()
+                    logger.info(
+                        "Created comment on Post for user %s", request.user
+                    )
                     return redirect(request.path_info)
             else:
                 comment_form = CommentForm()
