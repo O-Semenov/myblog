@@ -24,7 +24,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    published_at = models.DateTimeField(blank=True, null=True)
+    published_at = models.DateTimeField(blank=True, null=True, db_index=True)
     title = models.TextField(max_length=100)
     slug = models.SlugField()
     summary = models.TextField(max_length=500)
@@ -37,3 +37,12 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("post_detail", kwargs={"slug": self.slug})
+
+class AuthorProfile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile"
+    )
+    bio = models.TextField()
+
+    def __str__(self):
+        return f"{self.__class__.__name__} object for {self.user}"

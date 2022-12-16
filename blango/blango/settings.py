@@ -33,7 +33,7 @@ class Dev(Configuration):
     ALLOWED_HOSTS = values.ListValue(["localhost", "127.0.0.1"])
 
 
-    # Application definition
+    AUTH_USER_MODEL = "blango_auth.User"
 
     INSTALLED_APPS = [
         'django.contrib.admin',
@@ -42,8 +42,10 @@ class Dev(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'debug_toolbar',
         'blog',
         'crispy_forms',
+        'blango_auth',
         'crispy_bootstrap5'
     ]
 
@@ -55,7 +57,10 @@ class Dev(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
     ]
+
+    INTERNAL_IPS = ["127.0.0.1"]
 
     ROOT_URLCONF = 'blango.urls'
 
